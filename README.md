@@ -39,6 +39,7 @@ Multi-tool firmware for an ESP32-S3 DevKitC-1 with a 480x320 SPI TFT display. Th
 - [Visual Wiring Diagram](#visual-wiring-diagram)
 - [Quick Pin Map](#quick-pin-map)
 - [Web Flasher](#web-flasher)
+- [Wokwi Demo](#wokwi-demo)
 - [Build and Upload with PlatformIO](#build-and-upload-with-platformio)
 - [Known Limitations](#known-limitations)
 - [Credits](#credits)
@@ -452,6 +453,18 @@ Target repository:
 ```text
 https://github.com/pepeangell5/ESP32-TOOLS-PRO-480x320-V2.0
 ```
+
+[Back to table of contents](#table-of-contents)
+
+## Wokwi Demo
+
+The repository includes `diagram.json` and `wokwi.toml` for an ESP32-S3 demo with an SPI display and the three navigation buttons. Build the firmware first, then open the repository in Wokwi and start the simulation.
+
+```bash
+python -m platformio run -e esp32s3dev
+```
+
+The Wokwi demo covers boot, splash screen, menus, and button navigation. The nRF24L01, CC1101, and IR hardware functions require the real modules and are not fully simulated.
 
 [Back to table of contents](#table-of-contents)
 
