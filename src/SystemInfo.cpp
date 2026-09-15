@@ -11,11 +11,8 @@
 
 extern DisplayTFT tft;
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  LECTURA DE TEMPERATURA INTERNA
-//  El ESP32 tiene un sensor de temperatura interno accesible vía ROM
-//  function (no documentada oficialmente pero estable y ampliamente usada).
-// ═══════════════════════════════════════════════════════════════════════════
+// The legacy ROM temperature function exists on the original ESP32 only.
+#if CONFIG_IDF_TARGET_ESP32
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -23,12 +20,17 @@ uint8_t temprature_sens_read();
 #ifdef __cplusplus
 }
 #endif
+#endif
 
 static float readChipTemperatureC() {
+#if CONFIG_IDF_TARGET_ESP32
     // Lectura raw (resultado en °F aproximado, convertimos a °C)
     uint8_t raw = temprature_sens_read();
     float fahrenheit = (float)raw;
     return (fahrenheit - 32.0f) * 5.0f / 9.0f;
+#else
+    return 0.0f;
+#endif
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

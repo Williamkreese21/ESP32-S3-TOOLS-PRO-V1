@@ -12,11 +12,13 @@ extern DisplayTFT tft;
 //  Este override solo funciona si se aplico el comando objcopy --weaken-symbol
 //  sobre libnet80211.a (ver README del proyecto)
 // ═══════════════════════════════════════════════════════════════════════════
+#if CONFIG_IDF_TARGET_ESP32
 extern "C" int ieee80211_raw_frame_sanity_check(int32_t arg,
                                                  int32_t arg2,
                                                  int32_t arg3) {
     return 0;   // siempre permitir
 }
+#endif
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  CONFIGURACIÓN

@@ -1,6 +1,6 @@
-# ESP32-TOOLS-PRO-480x320-V2.0
+﻿# ESP32-S3-TOOLS-PRO-V1
 
-Multi-tool firmware for an ESP32 Dev Module with a 480x320 SPI TFT display. This V2.0 version adds real support for external IR and CC1101 modules, new WiFi/BLE tools, savable IR capture and replay, sub-GHz RF analysis, and a more polished interface for personal lab use.
+Multi-tool firmware for an ESP32-S3 DevKitC-1 with a 480x320 SPI TFT display. This V2.0 version adds real support for external IR and CC1101 modules, new WiFi/BLE tools, savable IR capture and replay, sub-GHz RF analysis, and a more polished interface for personal lab use.
 
 > Use this firmware only on your own networks, devices, and environments where you have authorization. Several functions can scan, transmit, interfere with, or copy signals. This project is intended for learning, diagnostics, and your own laboratory.
 
@@ -62,7 +62,7 @@ Multi-tool firmware for an ESP32 Dev Module with a 480x320 SPI TFT display. This
 
 ## Target Hardware
 
-- Classic ESP32 Dev Module.
+- ESP32-S3 DevKitC-1.
 - 480x320 SPI TFT display with an ILI9488 driver.
 - 2 nRF24L01 modules for 2.4 GHz tools.
 - M5Stack IR Unit with an infrared receiver and transmitter.
@@ -126,7 +126,7 @@ The RF433T/RF433R modules are not integrated in this version because the CC1101 
 - `Probe Sniffer`: observes nearby WiFi probes and displays detected activity.
 - `KARMA Attack`: educational mode for understanding responses to probes and insecure associations.
 
-Important limitation: the classic ESP32 only supports 2.4 GHz WiFi. It cannot scan 5 GHz networks.
+Important limitation: the ESP32-S3 only supports 2.4 GHz WiFi. It cannot scan 5 GHz networks.
 
 ### Radio Tools
 
@@ -217,287 +217,286 @@ Available in phase 1:
   - `Direction Finder`: measures front, right, back, and left to suggest the strongest direction.
   - `Beacon Spam`: controlled web demo with laboratory SSIDs, a dashboard-fixed channel, start/stop button, and auto-stop.
   - `Deauther`, `Evil Portal`, `Probe Sniffer`, and `KARMA Attack` appear as `LOCAL ONLY` and must be used from the device screen.
-+- Bluetooth / Radio from a browser:
-+  - `BT Jammer`: can be started and stopped directly from the web dashboard, without physical confirmation on the device. Use it only in your own short-range laboratory environment.
-+
-+The dashboard keeps functions that take full control of WiFi, such as Deauther, Evil Portal, and KARMA, as `LOCAL ONLY` to avoid conflicts with the dashboard AP. `BT Jammer` is the current exception: it can run from the web panel because it uses the nRF24L01 modules and does not need physical confirmation.
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Components Used
-+
-+| Component | Description | Recommended Voltage | Notes |
-+| --- | --- | --- | --- |
-+| ESP32 Dev Module | Main project microcontroller | USB/5V on board | 3.3V GPIO logic |
-+| TFT 480x320 ILI9488 SPI | Main display | Depends on module, commonly 5V or 3.3V | 3.3V SPI signals |
-+| nRF24L01 #1 | Main 2.4 GHz radio | 3.3V | Do not power with 5V |
-+| nRF24L01 #2 | Secondary 2.4 GHz radio | 3.3V | Capacitor near VCC/GND recommended |
-+| M5Stack IR Unit | Infrared receiver + transmitter | 5V | Wiring verified with OUT on GPIO26 and IN on GPIO34 |
-+| CC1101 | Sub-GHz radio for 315/433/868/915 MHz | 3.3V | Do not power with 5V |
-+| UP/OK/DOWN buttons | Firmware navigation | GPIO to GND | Uses internal `INPUT_PULLUP` |
-+
-+### Component Images
-+
-+| Component | Image |
-+| --- | --- |
-+| ESP32 Dev Module | ![ESP32](img/componentes/esp32U.png) |
-+| ILI9488 480x320 display | ![ILI9488 display](img/componentes/pantalla9488.png) |
-+| nRF24L01 modules | ![Two nRF24L01 modules](img/componentes/2NRF24.png) |
-+| nRF24L01 | ![nRF24L01](img/componentes/NRF24.png) |
-+| CC1101 | ![CC1101](img/componentes/cc1101.png) |
-+| Antenna | ![Antenna](img/componentes/antena.png) |
-+| M5Stack IR Unit | ![IR Unit](img/componentes/IRREMOTE.png) |
-+| IR Unit view 2 | ![IR Unit view 2](img/componentes/IRREMOTE2.png) |
-+| Buttons | ![Buttons](img/componentes/botones.png) |
-+| Battery | ![Battery](img/componentes/bateria.png) |
-+| TP4056 | ![TP4056](img/componentes/tp4056.png) |
-+| Step-up | ![Step-up](img/componentes/stepup.png) |
-+| Switch | ![Switch](img/componentes/interruptor.png) |
-+| PCB / assembly | ![PCB](img/componentes/placapcb.png) |
-+
-+### Complete Wiring Diagrams
-+
-+These diagrams show block-level wiring to make soldering and checking the assembly easier without overcrowding a single image.
-+
-+#### TFT Display and Buttons
-+
-+![ILI9488 display and buttons connected to the ESP32](img/componentes/conexiones-pantalla-botones-esp32.jpg)
-+
-+#### nRF24L01 Modules
-+
-+![Two nRF24L01 modules connected to the ESP32](img/componentes/conexiones-NRF24-ESP32.jpg)
-+
-+#### CC1101 and IR Remote
-+
-+![CC1101 and IR Remote connected to the ESP32](img/componentes/conexiones-CC1101-IR.jpg)
-+
-+### Reference Pinouts
-+
-+| Module | Pinout |
-+| --- | --- |
-+| nRF24L01 PA + LNA | ![nRF24L01 PA LNA pinout](img/componentes/Pines_NRF24.png) |
-+| CC1101 | ![CC1101 pinout](img/componentes/cc1101-pines.png) |
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Wiring Table
-+
-+All modules must share `GND` with the ESP32. Do not connect any 3.3V module to 5V.
-+
-+### Shared SPI Bus
-+
-+| Signal | ESP32 GPIO | Used by |
-+| --- | ---: | --- |
-+| SCK | GPIO18 | TFT, nRF24 #1, nRF24 #2, CC1101 |
-+| MOSI | GPIO23 | TFT, nRF24 #1, nRF24 #2, CC1101 |
-+| MISO | GPIO19 | nRF24 #1, nRF24 #2, CC1101 |
-+
-+Each SPI module has its own `CS/CSN` pin, so they can share SCK/MOSI/MISO.
-+
-+### 480x320 TFT Display
-+
-+| TFT Pin | ESP32 GPIO | Note |
-+| --- | ---: | --- |
-+| CS | GPIO5 | TFT chip select |
-+| RST | GPIO4 | TFT reset |
-+| DC / RS | GPIO22 | Data/Command |
-+| LED / BL | GPIO13 | Backlight |
-+| SCK / CLK | GPIO18 | Shared SPI |
-+| MOSI / SDI | GPIO23 | Shared SPI |
-+| MISO / SDO | Not used by TFT | Firmware sets TFT MISO to `-1` |
-+| VCC | Depends on module | Check your display: some accept 5V, others 3.3V |
-+| GND | GND | Common ground |
-+
-+### nRF24L01 #1
-+
-+| nRF24 Pin | ESP32 GPIO | Note |
-+| --- | ---: | --- |
-+| CE | GPIO27 | Radio #1 control |
-+| CSN | GPIO14 | Radio #1 chip select |
-+| SCK | GPIO18 | Shared SPI |
-+| MOSI | GPIO23 | Shared SPI |
-+| MISO | GPIO19 | Shared SPI |
-+| VCC | 3.3V | Do not use 5V |
-+| GND | GND | Common ground |
-+
-+### nRF24L01 #2
-+
-+| nRF24 Pin | ESP32 GPIO | Note |
-+| --- | ---: | --- |
-+| CE | GPIO17 | Radio #2 control |
-+| CSN | GPIO16 | Radio #2 chip select |
-+| SCK | GPIO18 | Shared SPI |
-+| MOSI | GPIO23 | Shared SPI |
-+| MISO | GPIO19 | Shared SPI |
-+| VCC | 3.3V | Do not use 5V |
-+| GND | GND | Common ground |
-+
-+### M5Stack IR Unit
-+
-+| IR Module Pin | ESP32 GPIO | Firmware Function | Note |
-+| --- | ---: | --- | --- |
-+| OUT | GPIO26 | `IR_TX_PIN` | ESP32 output to the module's IR transmitter |
-+| IN | GPIO34 | `IR_RX_PIN` | ESP32 input from the module's IR receiver |
-+| 5V | 5V | Power | The M5Stack IR module operates at 5V |
-+| GND | GND | Common ground | Ground must be shared |
-+
-+GPIO34 is input-only, so it is used for IR reception. GPIO26 is used for transmission.
-+
-+### CC1101
-+
-+| CC1101 Pin | ESP32 GPIO | Firmware Function | Note |
-+| --- | ---: | --- | --- |
-+| CSN / CS | GPIO21 | `CC1101_CSN_PIN` | CC1101 chip select |
-+| SCK | GPIO18 | Shared SPI | SPI clock |
-+| MOSI / SI | GPIO23 | Shared SPI | Data from ESP32 to CC1101 |
-+| MISO / SO | GPIO19 | Shared SPI | Data from CC1101 to ESP32 |
-+| GDO0 | GPIO35 | `CC1101_GDO0_PIN` | RF RX/edge input |
-+| Extra GDO2 | GPIO15 | `CC1101_TX_DATA_PIN` | Optional jumper for `Lab Replay` |
-+| VCC | 3.3V | Power | Do not use 5V |
-+| GND | GND | Common ground | Ground must be shared |
-+
-+The `GDO0 extra -> GPIO15` jumper is only needed for `Lab Replay` testing. You can omit it if you only use diagnostics, monitor, finder, analyzer, and raw view.
-+
-+### Buttons
-+
-+| Button | ESP32 GPIO | Wiring |
-+| --- | ---: | --- |
-+| UP | GPIO32 | Button between GPIO32 and GND |
-+| OK | GPIO33 | Button between GPIO33 and GND |
-+| DOWN | GPIO25 | Button between GPIO25 and GND |
-+
-+The buttons use the internal pull-up. When pressed, the pin goes `LOW`.
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Visual Wiring Diagram
-+
-+```mermaid
-+flowchart LR
-+  ESP(("ESP32 Dev Module<br>connection center<br>shared SPI: GPIO18 / GPIO23 / GPIO19<br>common GND")):::esp
-+
-+  NRF1["nRF24L01 #1<br>SPI 18/23/19<br>CE GPIO27<br>CSN GPIO14<br>3.3V + GND"]:::radio
-+  NRF2["nRF24L01 #2<br>SPI 18/23/19<br>CE GPIO17<br>CSN GPIO16<br>3.3V + GND"]:::radio
-+  IR["M5Stack IR Unit<br>OUT/TX GPIO26<br>IN/RX GPIO34<br>5V + GND"]:::ir
-+
-+  TFT["TFT 480x320 ILI9488<br>SCK GPIO18<br>MOSI GPIO23<br>CS GPIO5<br>DC GPIO22<br>RST GPIO4<br>BL GPIO13"]:::display
-+  CC["CC1101<br>SPI 18/23/19<br>CSN GPIO21<br>GDO0 RX GPIO35<br>optional TX GPIO15<br>3.3V + GND"]:::cc
-+  BTN["Buttons<br>UP GPIO32<br>OK GPIO33<br>DOWN GPIO25<br>each button to GND"]:::btn
-+
-+  NRF1 --- ESP
-+  NRF2 --- ESP
-+  IR --- ESP
-+  ESP --- TFT
-+  ESP --- CC
-+  ESP --- BTN
-+
-+  classDef esp fill:#0f172a,stroke:#38bdf8,stroke-width:3px,color:#ffffff;
-+  classDef display fill:#111827,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
-+  classDef radio fill:#111827,stroke:#22c55e,stroke-width:2px,color:#ffffff;
-+  classDef ir fill:#111827,stroke:#ef4444,stroke-width:2px,color:#ffffff;
-+  classDef cc fill:#111827,stroke:#a855f7,stroke-width:2px,color:#ffffff;
-+  classDef btn fill:#111827,stroke:#e5e7eb,stroke-width:2px,color:#ffffff;
-+```
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Quick Pin Map
-+
-+```text
-+ESP32 GPIO18  -> shared SPI SCK
-+ESP32 GPIO23  -> shared SPI MOSI
-+ESP32 GPIO19  -> shared SPI MISO
-+
-+ESP32 GPIO5   -> TFT CS
-+ESP32 GPIO4   -> TFT RST
-+ESP32 GPIO22  -> TFT DC
-+ESP32 GPIO13  -> TFT Backlight
-+
-+ESP32 GPIO27  -> nRF24 #1 CE
-+ESP32 GPIO14  -> nRF24 #1 CSN
-+ESP32 GPIO17  -> nRF24 #2 CE
-+ESP32 GPIO16  -> nRF24 #2 CSN
-+
-+ESP32 GPIO26  -> IR OUT / TX
-+ESP32 GPIO34  -> IR IN / RX
-+
-+ESP32 GPIO21  -> CC1101 CSN
-+ESP32 GPIO35  -> CC1101 GDO0 RX
-+ESP32 GPIO15  -> CC1101 optional GDO0 TX for Lab Replay
-+
-+ESP32 GPIO32  -> UP button to GND
-+ESP32 GPIO33  -> OK button to GND
-+ESP32 GPIO25  -> DOWN button to GND
-+```
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Web Flasher
-+
-+Flash directly from a browser:
-+
-+[https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
-+
-+The page uses ESP Web Tools and these repository files:
-+
-+- `index.html`: flashing page with ESP Web Tools.
-+- `manifest.json`: manifest used by ESP Web Tools.
-+- `assets/Firmware/firmware-merged.bin`: complete binary to flash from offset `0x0`.
-+- `assets/Firmware/firmware.bin`: compiled application.
-+- `assets/Firmware/bootloader.bin`: bootloader.
-+- `assets/Firmware/partitions.bin`: partition table.
-+
-+Target repository:
-+
-+```text
-+https://github.com/pepeangell5/ESP32-TOOLS-PRO-480x320-V2.0
-+```
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Build and Upload with PlatformIO
-+
-+Build:
-+
-+```bash
-+pio run
-+```
-+
-+Upload to the ESP32:
-+
-+```bash
-+pio run -t upload --upload-port COM3
-+```
-+
-+If uploading fails with a boot/serial error, hold `BOOT` while starting the upload and release it when PlatformIO begins writing.
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Known Limitations
-+
-+- WiFi is 2.4 GHz only because the classic ESP32 does not have a 5 GHz radio.
-+- The CC1101 provides approximate RSSI/frequency readings; it is not a professional spectrum analyzer.
-+- `IR Proximity` is experimental and may remain at `NONE` depending on the angle and physical reflection.
-+- Air conditioners usually use long signals with complete state information; save each function separately.
-+- `Jammer`, `BT Jammer`, `BLE Spam`, `BT Disruptor`, `Deauther`, `KARMA`, and `Beacon Spam` are laboratory functions. They can degrade nearby communications and must be used only with authorization.
-+- `Lab Replay` RF is intended for lights, outlets, or your own fixed-code devices. It is not for vehicles, alarms, locks, or gates.
-+- The RF433T/RF433R modules are excluded from V2.0.
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Credits
-+
-+Project created and tested by PepeAngell for ESP32-TOOLS-PRO-480x320-V2.0.
-+
-+[Back to table of contents](#table-of-contents)
-+
-+## Social and Links
-+
-+- GitHub: [github.com/pepeangell5](https://github.com/pepeangell5)
-+- Web Flasher: [pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
-+- Instagram: [@esp32_tools](https://instagram.com/esp32_tools)
-+- Facebook: [ESP32Tools](https://www.facebook.com/esp32tools/)
-+
-+[Back to table of contents](#table-of-contents)
-+
-+[Back to top](#esp32-tools-pro-480x320-v20)
+- Bluetooth / Radio from a browser:
+  - `BT Jammer`: can be started and stopped directly from the web dashboard, without physical confirmation on the device. Use it only in your own short-range laboratory environment.
+
+The dashboard keeps functions that take full control of WiFi, such as Deauther, Evil Portal, and KARMA, as `LOCAL ONLY` to avoid conflicts with the dashboard AP. `BT Jammer` is the current exception: it can run from the web panel because it uses the nRF24L01 modules and does not need physical confirmation.
+
+[Back to table of contents](#table-of-contents)
+
+## Components Used
+
+| Component | Description | Recommended Voltage | Notes |
+| --- | --- | --- | --- |
+| ESP32-S3 DevKitC-1 | Main project microcontroller | USB/5V on board | 3.3V GPIO logic |
+| TFT 480x320 ILI9488 SPI | Main display | Depends on module, commonly 5V or 3.3V | 3.3V SPI signals |
+| nRF24L01 #1 | Main 2.4 GHz radio | 3.3V | Do not power with 5V |
+| nRF24L01 #2 | Secondary 2.4 GHz radio | 3.3V | Capacitor near VCC/GND recommended |
+| M5Stack IR Unit | Infrared receiver + transmitter | 5V | Wiring verified with OUT on GPIO14 and IN on GPIO15 |
+| CC1101 | Sub-GHz radio for 315/433/868/915 MHz | 3.3V | Do not power with 5V |
+| UP/OK/DOWN buttons | Firmware navigation | GPIO to GND | Uses internal `INPUT_PULLUP` |
+
+### Component Images
+
+| Component | Image |
+| --- | --- |
+| ESP32-S3 DevKitC-1 | ![ESP32-S3](img/componentes/esp32U.png) |
+| ILI9488 480x320 display | ![ILI9488 display](img/componentes/pantalla9488.png) |
+| nRF24L01 modules | ![Two nRF24L01 modules](img/componentes/2NRF24.png) |
+| nRF24L01 | ![nRF24L01](img/componentes/NRF24.png) |
+| CC1101 | ![CC1101](img/componentes/cc1101.png) |
+| Antenna | ![Antenna](img/componentes/antena.png) |
+| M5Stack IR Unit | ![IR Unit](img/componentes/IRREMOTE.png) |
+| IR Unit view 2 | ![IR Unit view 2](img/componentes/IRREMOTE2.png) |
+| Buttons | ![Buttons](img/componentes/botones.png) |
+| Battery | ![Battery](img/componentes/bateria.png) |
+| TP4056 | ![TP4056](img/componentes/tp4056.png) |
+| Step-up | ![Step-up](img/componentes/stepup.png) |
+| Switch | ![Switch](img/componentes/interruptor.png) |
+| PCB / assembly | ![PCB](img/componentes/placapcb.png) |
+
+### Complete Wiring Diagrams
+
+These diagrams show block-level wiring to make soldering and checking the assembly easier without overcrowding a single image.
+
+#### TFT Display and Buttons
+
+![ILI9488 display and buttons connected to the ESP32](img/componentes/conexiones-pantalla-botones-esp32.jpg)
+
+#### nRF24L01 Modules
+
+![Two nRF24L01 modules connected to the ESP32](img/componentes/conexiones-NRF24-ESP32.jpg)
+
+#### CC1101 and IR Remote
+
+![CC1101 and IR Remote connected to the ESP32](img/componentes/conexiones-CC1101-IR.jpg)
+
+### Reference Pinouts
+
+| Module | Pinout |
+| --- | --- |
+| nRF24L01 PA + LNA | ![nRF24L01 PA LNA pinout](img/componentes/Pines_NRF24.png) |
+| CC1101 | ![CC1101 pinout](img/componentes/cc1101-pines.png) |
+
+[Back to table of contents](#table-of-contents)
+
+## Wiring Table
+
+All modules must share `GND` with the ESP32. Do not connect any 3.3V module to 5V.
+
+### Shared SPI Bus
+
+| Signal | ESP32-S3 GPIO | Used by |
+| --- | ---: | --- |
+| SCK | GPIO12 | TFT, nRF24 #1, nRF24 #2, CC1101 |
+| MOSI | GPIO11 | TFT, nRF24 #1, nRF24 #2, CC1101 |
+| MISO | GPIO13 | nRF24 #1, nRF24 #2, CC1101 |
+
+Each SPI module has its own `CS/CSN` pin, so they can share SCK/MOSI/MISO.
+
+### 480x320 TFT Display
+
+| TFT Pin | ESP32-S3 GPIO | Note |
+| --- | ---: | --- |
+| CS | GPIO10 | TFT chip select |
+| RST | GPIO8 | TFT reset |
+| DC / RS | GPIO9 | Data/Command |
+| LED / BL | GPIO3 | Backlight |
+| SCK / CLK | GPIO12 | Shared SPI |
+| MOSI / SDI | GPIO11 | Shared SPI |
+| MISO / SDO | Not used by TFT | Firmware sets TFT MISO to `-1` |
+| VCC | Depends on module | Check your display: some accept 5V, others 3.3V |
+| GND | GND | Common ground |
+
+### nRF24L01 #1
+
+| nRF24 Pin | ESP32-S3 GPIO | Note |
+| --- | ---: | --- |
+| CE | GPIO4 | Radio #1 control |
+| CSN | GPIO6 | Radio #1 chip select |
+| SCK | GPIO12 | Shared SPI |
+| MOSI | GPIO11 | Shared SPI |
+| MISO | GPIO13 | Shared SPI |
+| VCC | 3.3V | Do not use 5V |
+| GND | GND | Common ground |
+
+### nRF24L01 #2
+
+| nRF24 Pin | ESP32 GPIO | Note |
+| --- | ---: | --- |
+| CE | GPIO5 | Radio #2 control |
+| CSN | GPIO7 | Radio #2 chip select |
+| SCK | GPIO12 | Shared SPI |
+| MOSI | GPIO11 | Shared SPI |
+| MISO | GPIO13 | Shared SPI |
+| VCC | 3.3V | Do not use 5V |
+| GND | GND | Common ground |
+
+### M5Stack IR Unit
+
+| IR Module Pin | ESP32-S3 GPIO | Firmware Function | Note |
+| --- | ---: | --- | --- |
+| OUT | GPIO14 | `IR_TX_PIN` | ESP32 output to the module's IR transmitter |
+| IN | GPIO15 | `IR_RX_PIN` | ESP32 input from the module's IR receiver |
+| 5V | 5V | Power | The M5Stack IR module operates at 5V |
+| GND | GND | Common ground | Ground must be shared |
+
+GPIO15 is used for IR reception. GPIO14 is used for transmission.
+
+### CC1101
+
+| CC1101 Pin | ESP32-S3 GPIO | Firmware Function | Note |
+| --- | ---: | --- | --- |
+| CSN / CS | GPIO16 | `CC1101_CSN_PIN` | CC1101 chip select |
+| SCK | GPIO12 | Shared SPI | SPI clock |
+| MOSI / SI | GPIO11 | Shared SPI | Data from ESP32 to CC1101 |
+| MISO / SO | GPIO13 | Shared SPI | Data from CC1101 to ESP32 |
+| GDO0 | GPIO38 | `CC1101_GDO0_PIN` | RF RX/edge input |
+| Extra GDO2 | GPIO39 | `CC1101_TX_DATA_PIN` | Optional jumper for `Lab Replay` |
+| VCC | 3.3V | Power | Do not use 5V |
+| GND | GND | Common ground | Ground must be shared |
+
+The `GDO0 extra -> GPIO39` jumper is only needed for `Lab Replay` testing. You can omit it if you only use diagnostics, monitor, finder, analyzer, and raw view.
+
+### Buttons
+
+| Button | ESP32-S3 GPIO | Wiring |
+| --- | ---: | --- |
+| UP | GPIO1 | Button between GPIO1 and GND |
+| OK | GPIO2 | Button between GPIO2 and GND |
+| DOWN | GPIO21 | Button between GPIO21 and GND |
+
+The buttons use the internal pull-up. When pressed, the pin goes `LOW`.
+
+[Back to table of contents](#table-of-contents)
+
+## Visual Wiring Diagram
+
+```mermaid
+flowchart LR
+  ESP(("ESP32-S3 DevKitC-1<br>connection center<br>shared SPI: GPIO12 / GPIO11 / GPIO13<br>common GND")):::esp
+
+  NRF1["nRF24L01 #1<br>SPI 12/11/13<br>CE GPIO4<br>CSN GPIO6<br>3.3V + GND"]:::radio
+  NRF2["nRF24L01 #2<br>SPI 12/11/13<br>CE GPIO5<br>CSN GPIO7<br>3.3V + GND"]:::radio
+  IR["M5Stack IR Unit<br>OUT/TX GPIO14<br>IN/RX GPIO15<br>5V + GND"]:::ir
+
+  TFT["TFT 480x320 ILI9488<br>SCK GPIO12<br>MOSI GPIO11<br>CS GPIO10<br>DC GPIO9<br>RST GPIO8<br>BL GPIO3"]:::display
+  CC["CC1101<br>SPI 12/11/13<br>CSN GPIO16<br>GDO0 RX GPIO38<br>optional TX GPIO39<br>3.3V + GND"]:::cc
+  BTN["Buttons<br>UP GPIO1<br>OK GPIO2<br>DOWN GPIO21<br>each button to GND"]:::btn
+
+  NRF1 --- ESP
+  NRF2 --- ESP
+  IR --- ESP
+  ESP --- TFT
+  ESP --- CC
+  ESP --- BTN
+
+  classDef esp fill:#0f172a,stroke:#38bdf8,stroke-width:3px,color:#ffffff;
+  classDef display fill:#111827,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
+  classDef radio fill:#111827,stroke:#22c55e,stroke-width:2px,color:#ffffff;
+  classDef ir fill:#111827,stroke:#ef4444,stroke-width:2px,color:#ffffff;
+  classDef cc fill:#111827,stroke:#a855f7,stroke-width:2px,color:#ffffff;
+  classDef btn fill:#111827,stroke:#e5e7eb,stroke-width:2px,color:#ffffff;
+```
+
+[Back to table of contents](#table-of-contents)
+
+## Quick Pin Map
+
+```text
+ESP32-S3 GPIO12  -> shared SPI SCK
+ESP32-S3 GPIO11  -> shared SPI MOSI
+ESP32-S3 GPIO13  -> shared SPI MISO
+
+ESP32-S3 GPIO10   -> TFT CS
+ESP32-S3 GPIO8   -> TFT RST
+ESP32-S3 GPIO9  -> TFT DC
+ESP32-S3 GPIO3  -> TFT Backlight
+
+ESP32-S3 GPIO4  -> nRF24 #1 CE
+ESP32-S3 GPIO6  -> nRF24 #1 CSN
+ESP32-S3 GPIO5  -> nRF24 #2 CE
+ESP32-S3 GPIO7  -> nRF24 #2 CSN
+
+ESP32-S3 GPIO14  -> IR OUT / TX
+ESP32-S3 GPIO15  -> IR IN / RX
+
+ESP32-S3 GPIO16  -> CC1101 CSN
+ESP32-S3 GPIO38  -> CC1101 GDO0 RX
+ESP32-S3 GPIO39  -> CC1101 optional GDO0 TX for Lab Replay
+
+ESP32-S3 GPIO1  -> UP button to GND
+ESP32-S3 GPIO2  -> OK button to GND
+ESP32-S3 GPIO21  -> DOWN button to GND
+```
+
+[Back to table of contents](#table-of-contents)
+
+## Web Flasher
+
+Flash directly from a browser:
+
+[https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
+
+The page uses ESP Web Tools and these repository files:
+
+- `index.html`: flashing page with ESP Web Tools.
+- `manifest.json`: manifest used by ESP Web Tools.
+- `assets/Firmware/firmware-merged.bin`: complete binary to flash from offset `0x0`.
+- `assets/Firmware/firmware.bin`: compiled application.
+- `assets/Firmware/bootloader.bin`: bootloader.
+- `assets/Firmware/partitions.bin`: partition table.
+
+Target repository:
+
+```text
+https://github.com/pepeangell5/ESP32-TOOLS-PRO-480x320-V2.0
+```
+
+[Back to table of contents](#table-of-contents)
+
+## Build and Upload with PlatformIO
+
+Build:
+
+```bash
+pio run
+```
+
+Upload to the ESP32:
+
+```bash
+pio run -t upload --upload-port COM3
+```
+
+If uploading fails with a boot/serial error, hold `BOOT` while starting the upload and release it when PlatformIO begins writing.
+
+[Back to table of contents](#table-of-contents)
+
+## Known Limitations
+
+- WiFi is 2.4 GHz only because the ESP32-S3 does not have a 5 GHz radio.
+- The CC1101 provides approximate RSSI/frequency readings; it is not a professional spectrum analyzer.
+- `IR Proximity` is experimental and may remain at `NONE` depending on the angle and physical reflection.
+- Air conditioners usually use long signals with complete state information; save each function separately.
+- `Jammer`, `BT Jammer`, `BLE Spam`, `BT Disruptor`, `Deauther`, `KARMA`, and `Beacon Spam` are laboratory functions. They can degrade nearby communications and must be used only with authorization.
+- `Lab Replay` RF is intended for lights, outlets, or your own fixed-code devices. It is not for vehicles, alarms, locks, or gates.
+- The RF433T/RF433R modules are excluded from V2.0.
+
+[Back to table of contents](#table-of-contents)
+
+## Credits
+
+Project created and tested by PepeAngell for ESP32-TOOLS-PRO-480x320-V2.0.
+
+[Back to table of contents](#table-of-contents)
+
+## Social and Links
+
+- GitHub: [github.com/pepeangell5](https://github.com/pepeangell5)
+- Web Flasher: [pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
+- Instagram: [@esp32_tools](https://instagram.com/esp32_tools)
+- Facebook: [ESP32Tools](https://www.facebook.com/esp32tools/)
+[Back to table of contents](#table-of-contents)
+
+[Back to top](#esp32-tools-pro-480x320-v20)
