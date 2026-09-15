@@ -8,7 +8,7 @@
       "id": "esp",
       "top": -10,
       "left": -10,
-      "attrs": { "env": "esp32s3dev" }
+      "attrs": { "env": "wokwi" }
     },
     {
       "type": "wokwi-ili9341",

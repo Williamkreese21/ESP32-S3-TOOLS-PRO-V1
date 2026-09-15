@@ -461,7 +461,7 @@ https://github.com/pepeangell5/ESP32-TOOLS-PRO-480x320-V2.0
 The repository includes `diagram.json` and `wokwi.toml` for an ESP32-S3 demo with an SPI display and the three navigation buttons. Build the firmware first, then open the repository in Wokwi and start the simulation.
 
 ```bash
-python -m platformio run -e esp32s3dev
+python -m platformio run -e wokwi
 ```
 
 The Wokwi demo covers boot, splash screen, menus, and button navigation. The nRF24L01, CC1101, and IR hardware functions require the real modules and are not fully simulated.
