@@ -1,22 +1,22 @@
 # ESP32-TOOLS-PRO-480x320-V2.0
 
-Firmware multi-herramienta para ESP32 Dev Module con pantalla TFT SPI 480x320. Esta version V2.0 agrega soporte real para modulos externos IR y CC1101, nuevas herramientas WiFi/BLE, captura y replay IR guardable, analisis RF sub-GHz y una interfaz mas pulida para uso de laboratorio propio.
+Multi-tool firmware for an ESP32 Dev Module with a 480x320 SPI TFT display. This V2.0 version adds real support for external IR and CC1101 modules, new WiFi/BLE tools, savable IR capture and replay, sub-GHz RF analysis, and a more polished interface for personal lab use.
 
-> Usa este firmware solo en tus redes, tus dispositivos y entornos donde tengas autorizacion. Varias funciones pueden escanear, transmitir, interferir o copiar senales. El objetivo de este proyecto es aprendizaje, diagnostico y laboratorio propio.
+> Use this firmware only on your own networks, devices, and environments where you have authorization. Several functions can scan, transmit, interfere with, or copy signals. This project is intended for learning, diagnostics, and your own laboratory.
 
 [![GitHub](https://img.shields.io/badge/GitHub-pepeangell5-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/pepeangell5)
-[![Web Flasher](https://img.shields.io/badge/Web%20Flasher-Instalar%20Firmware-00C853?style=for-the-badge&logo=esphome&logoColor=white)](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
+[![Web Flasher](https://img.shields.io/badge/Web%20Flasher-Install%20Firmware-00C853?style=for-the-badge&logo=esphome&logoColor=white)](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
 [![Instagram](https://img.shields.io/badge/Instagram-esp32_tools-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/esp32_tools)
 [![Facebook](https://img.shields.io/badge/Facebook-ESP32Tools-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/esp32tools/)
 
-## Indice
+## Table of Contents
 
-- [Que cambia frente a V1.0](#que-cambia-frente-a-v10)
-- [Hardware objetivo](#hardware-objetivo)
-- [Galeria](#galeria)
-- [Capturas del firmware](#capturas-del-firmware)
-- [Navegacion](#navegacion)
-- [Funciones principales](#funciones-principales)
+- [What Changed from V1.0](#what-changed-from-v10)
+- [Target Hardware](#target-hardware)
+- [Gallery](#gallery)
+- [Firmware Screenshots](#firmware-screenshots)
+- [Navigation](#navigation)
+- [Main Features](#main-features)
   - [WiFi Tools](#wifi-tools)
   - [Radio Tools](#radio-tools)
   - [Signal Tools / IR](#signal-tools--ir)
@@ -24,179 +24,179 @@ Firmware multi-herramienta para ESP32 Dev Module con pantalla TFT SPI 480x320. E
   - [Bluetooth Tools](#bluetooth-tools)
   - [System Tools](#system-tools)
   - [Web Dashboard](#web-dashboard)
-- [Componentes usados](#componentes-usados)
-  - [Imagenes de componentes](#imagenes-de-componentes)
-  - [Diagramas de conexiones completas](#diagramas-de-conexiones-completas)
-  - [Pinouts de referencia](#pinouts-de-referencia)
-- [Tabla de conexiones](#tabla-de-conexiones)
-  - [Bus SPI compartido](#bus-spi-compartido)
-  - [Pantalla TFT 480x320](#pantalla-tft-480x320)
+- [Components Used](#components-used)
+  - [Component Images](#component-images)
+  - [Complete Wiring Diagrams](#complete-wiring-diagrams)
+  - [Reference Pinouts](#reference-pinouts)
+- [Wiring Table](#wiring-table)
+  - [Shared SPI Bus](#shared-spi-bus)
+  - [480x320 TFT Display](#480x320-tft-display)
   - [nRF24L01 #1](#nrf24l01-1)
   - [nRF24L01 #2](#nrf24l01-2)
   - [M5Stack IR Unit](#m5stack-ir-unit)
   - [CC1101](#cc1101)
-  - [Botones](#botones)
-- [Diagrama visual de conexiones](#diagrama-visual-de-conexiones)
-- [Pin map rapido](#pin-map-rapido)
-- [Web flasher](#web-flasher)
-- [Compilar y subir con PlatformIO](#compilar-y-subir-con-platformio)
-- [Limites conocidos](#limites-conocidos)
-- [Creditos](#creditos)
-- [Redes y enlaces](#redes-y-enlaces)
+  - [Buttons](#buttons)
+- [Visual Wiring Diagram](#visual-wiring-diagram)
+- [Quick Pin Map](#quick-pin-map)
+- [Web Flasher](#web-flasher)
+- [Build and Upload with PlatformIO](#build-and-upload-with-platformio)
+- [Known Limitations](#known-limitations)
+- [Credits](#credits)
+- [Social and Links](#social-and-links)
 
-## Que cambia frente a V1.0
+## What Changed from V1.0
 
-- Soporte para M5Stack IR Unit con captura, replay, guardado de senales y controles virtuales.
-- Soporte para modulo CC1101 sub-GHz dentro de `Radio Tools > CC1101`.
-- `Jammer` renovado en `Radio Tools` para pruebas 2.4 GHz con doble nRF24L01.
-- Nuevo `BT Jammer` dentro de `Bluetooth Tools` para barrido educativo 2.4 GHz en laboratorio propio.
-- Nuevas herramientas WiFi: Channel Scan, WiFi Radar y WiFi Direction Finder.
-- Nuevo BLE Device Radar con seguimiento de RSSI, cercania estimada y detalles limpios.
-- Nuevo BLE Inspector para ver fabricante, tipo, appearance y servicios.
-- iPhone Remote/BLE HID experimental para pruebas con dispositivos propios.
-- Splash actualizado con animacion de texto mas limpia y marca `BWifiKill`.
-- Menus con menos parpadeo, cursor recordado al volver y pantallas de diagnostico mas claras.
-- Documentacion de pines para soldar el hardware adicional sin adivinar.
+- Support for the M5Stack IR Unit with signal capture, replay, storage, and virtual controls.
+- Support for the CC1101 sub-GHz module under `Radio Tools > CC1101`.
+- Updated `Jammer` in `Radio Tools` for 2.4 GHz testing with dual nRF24L01 modules.
+- New `BT Jammer` in `Bluetooth Tools` for educational 2.4 GHz sweeping in your own lab.
+- New WiFi tools: Channel Scan, WiFi Radar, and WiFi Direction Finder.
+- New BLE Device Radar with RSSI tracking, estimated proximity, and clean details.
+- New BLE Inspector for viewing manufacturer, type, appearance, and services.
+- Experimental iPhone Remote/BLE HID for testing with your own devices.
+- Updated splash screen with cleaner text animation and `BWifiKill` branding.
+- Menus with less flicker, remembered cursor positions, and clearer diagnostic screens.
+- Pin documentation for soldering additional hardware without guesswork.
 
-[Volver al indice](#indice)
+[Back to table of contents](#table-of-contents)
 
-## Hardware objetivo
+## Target Hardware
 
-- ESP32 Dev Module clasico.
-- Pantalla TFT SPI 480x320 con driver ILI9488.
-- 2 modulos nRF24L01 para herramientas 2.4 GHz.
-- M5Stack IR Unit con receptor y transmisor infrarrojo.
-- Modulo CC1101 sub-GHz.
-- 3 botones fisicos: UP, OK y DOWN.
-- Cables, soldadura, headers y GND comun para todos los modulos.
+- Classic ESP32 Dev Module.
+- 480x320 SPI TFT display with an ILI9488 driver.
+- 2 nRF24L01 modules for 2.4 GHz tools.
+- M5Stack IR Unit with an infrared receiver and transmitter.
+- CC1101 sub-GHz module.
+- 3 physical buttons: UP, OK, and DOWN.
+- Wires, solder, headers, and a common GND connection for all modules.
 
-Los modulos RF433T/RF433R no estan integrados en esta version porque el CC1101 cubre mejor el trabajo sub-GHz y permite mas diagnostico desde software.
+The RF433T/RF433R modules are not integrated in this version because the CC1101 handles sub-GHz work better and provides more diagnostics through software.
 
-[Volver al indice](#indice)
+[Back to table of contents](#table-of-contents)
 
-## Galeria
+## Gallery
 
-| Vista | Imagen |
+| View | Image |
 | --- | --- |
-| Dispositivo terminado | ![ESP32-TOOLS-PRO armado](img/pro1.JPG) |
-| Vista frontal | ![Vista frontal ESP32-TOOLS-PRO](img/pro2.JPG) |
-| Vista lateral | ![Vista lateral ESP32-TOOLS-PRO](img/pro3.JPG) |
-| Vista interna / montaje | ![Montaje ESP32-TOOLS-PRO](img/pro4.JPG) |
+| Completed device | ![Assembled ESP32-TOOLS-PRO](img/pro1.JPG) |
+| Front view | ![ESP32-TOOLS-PRO front view](img/pro2.JPG) |
+| Side view | ![ESP32-TOOLS-PRO side view](img/pro3.JPG) |
+| Internal view / assembly | ![ESP32-TOOLS-PRO assembly](img/pro4.JPG) |
 
-[Volver al indice](#indice)
+[Back to table of contents](#table-of-contents)
 
-## Capturas del firmware
+## Firmware Screenshots
 
-| Menu | Imagen |
+| Menu | Image |
 | --- | --- |
 | Splash | ![Splash screen](img/splash.jpg) |
-| Menu principal | ![Menu principal](img/menu.jpg) |
+| Main menu | ![Main menu](img/menu.jpg) |
 | WiFi Tools | ![WiFi tools](img/wifi.JPG) |
-| WiFi scanner / canales | ![WiFi tools detalle](img/wifi2.JPG) |
+| WiFi scanner / channels | ![WiFi tools detail](img/wifi2.JPG) |
 | Radio Tools | ![Radio tools](img/radio.JPG) |
 | Bluetooth Tools | ![Bluetooth tools](img/bluetooth.JPG) |
 | Packet Monitor | ![Packet monitor](img/packet.JPG) |
 | System Tools | ![System tools](img/system.JPG) |
 | Screensaver | ![Screensaver](img/screensaver.jpg) |
 
-[Volver al indice](#indice)
+[Back to table of contents](#table-of-contents)
 
-## Navegacion
+## Navigation
 
-- `UP`: subir o cambiar valor.
-- `DOWN`: bajar o cambiar valor.
-- `OK`: entrar, seleccionar, capturar o ejecutar accion.
-- `OK` mantenido: regresar, cancelar o salir de la pantalla actual.
-- Los submenus recuerdan la opcion donde estabas al regresar.
+- `UP`: move up or change a value.
+- `DOWN`: move down or change a value.
+- `OK`: enter, select, capture, or perform an action.
+- Hold `OK`: go back, cancel, or exit the current screen.
+- Submenus remember the option you were on when returning.
 
-[Volver al indice](#indice)
+[Back to table of contents](#table-of-contents)
 
-## Funciones principales
+## Main Features
 
 ### WiFi Tools
 
-- `WiFi Scanner`: escanea redes WiFi 2.4 GHz cercanas y muestra SSID, BSSID, canal, RSSI, frecuencia y seguridad.
-- `Channel Scan`: agrupa redes por canal, muestra cuantas redes hay en cada canal y permite abrir la lista de APs por canal.
-- `WiFi Radar`: permite elegir un AP y rastrearlo por RSSI, porcentaje de cercania, pico, tendencia e historial.
-- `WiFi Direction Finder`: mide RSSI por sectores para estimar desde que direccion llega mas fuerte una red.
-- `WiFi Config`: conecta el ESP32 a una red usando teclado virtual y guarda credenciales en NVS.
-- `Beacon Spam`: emite beacons de prueba para laboratorio controlado.
-- `Deauther`: herramienta de pruebas WiFi para entornos autorizados.
-- `Evil Portal`: portal cautivo educativo para demostrar flujos de phishing en laboratorio propio.
-- `Probe Sniffer`: observa probes WiFi cercanos y muestra actividad detectada.
-- `KARMA Attack`: modo educativo para entender respuestas a probes y asociaciones inseguras.
+- `WiFi Scanner`: scans nearby 2.4 GHz WiFi networks and displays SSID, BSSID, channel, RSSI, frequency, and security.
+- `Channel Scan`: groups networks by channel, shows how many networks are on each channel, and lets you open the AP list for a channel.
+- `WiFi Radar`: lets you choose an AP and track it by RSSI, proximity percentage, peak, trend, and history.
+- `WiFi Direction Finder`: measures RSSI by sector to estimate the direction from which a network is strongest.
+- `WiFi Config`: connects the ESP32 to a network using the virtual keyboard and stores credentials in NVS.
+- `Beacon Spam`: transmits test beacons for controlled laboratory use.
+- `Deauther`: WiFi testing tool for authorized environments.
+- `Evil Portal`: educational captive portal for demonstrating phishing flows in your own lab.
+- `Probe Sniffer`: observes nearby WiFi probes and displays detected activity.
+- `KARMA Attack`: educational mode for understanding responses to probes and insecure associations.
 
-Limitacion importante: el ESP32 clasico solo trabaja WiFi 2.4 GHz. No puede escanear redes 5 GHz.
+Important limitation: the classic ESP32 only supports 2.4 GHz WiFi. It cannot scan 5 GHz networks.
 
 ### Radio Tools
 
-- `Jammer`: modo renovado para pruebas 2.4 GHz en laboratorio propio. Permite elegir canal WiFi, activar/detener con `OK` y usa los dos nRF24L01 cuando estan disponibles.
-- `Radio Scanner`: analizador visual 2.4 GHz con espectro, actividad por canal y vistas tipo waterfall.
-- `Signal Tools`: herramientas IR y diagnostico basico de pines.
-- `CC1101`: menu dedicado para sub-GHz con diagnostico, espectro, monitor, finder y analisis RF.
+- `Jammer`: updated mode for 2.4 GHz testing in your own lab. It lets you choose a WiFi channel, start/stop with `OK`, and uses both nRF24L01 modules when available.
+- `Radio Scanner`: visual 2.4 GHz analyzer with spectrum, channel activity, and waterfall-style views.
+- `Signal Tools`: IR tools and basic pin diagnostics.
+- `CC1101`: dedicated sub-GHz menu with diagnostics, spectrum, monitor, finder, and RF analysis.
 
 ### Signal Tools / IR
 
-- `Hardware Diag`: muestra pines, estado SPI, niveles RX y estado general del hardware.
-- `Input Monitor`: muestra actividad en IR RX y GDO0 del CC1101 para validar cableado.
-- `IR Raw Capture`: captura senales raw de controles infrarrojos.
-- `IR Replay`: reproduce la ultima captura usando carrier IR de 38 kHz.
-- `IR TX Test`: emite tres flashes IR para validar el transmisor con camara de celular.
-- `Saved Captures`: guarda capturas IR con nombre, las carga, reproduce, renombra o borra.
-- `IR Remotes`: crea controles virtuales con botones que apuntan a capturas guardadas.
-- `IR Analyzer`: detector de actividad IR en vivo con estados `IDLE`, `FRAME`, `REPEAT` y `NOISE`.
-- `Protocol Scan`: intenta clasificar la senal como NEC, Samsung, LG, Sony, Panasonic, RC5, RC6 o RAW.
-- `IR Sniffer`: registra eventos IR en vivo con protocolo, codigo, bits, duracion y repeticiones.
-- `Night IR`: detecta actividad IR pulsada/modulada de controles, LEDs IR, sensores o camaras con IR pulsado.
-- `IR Proximity`: prueba experimental de rebote IR. No mide distancia real; depende mucho del montaje fisico.
+- `Hardware Diag`: displays pins, SPI status, RX levels, and general hardware status.
+- `Input Monitor`: displays activity on IR RX and CC1101 GDO0 to validate wiring.
+- `IR Raw Capture`: captures raw signals from infrared remotes.
+- `IR Replay`: replays the last capture using a 38 kHz IR carrier.
+- `IR TX Test`: emits three IR flashes to validate the transmitter with a phone camera.
+- `Saved Captures`: stores named IR captures and lets you load, replay, rename, or delete them.
+- `IR Remotes`: creates virtual remotes with buttons linked to saved captures.
+- `IR Analyzer`: live IR activity detector with `IDLE`, `FRAME`, `REPEAT`, and `NOISE` states.
+- `Protocol Scan`: attempts to classify the signal as NEC, Samsung, LG, Sony, Panasonic, RC5, RC6, or RAW.
+- `IR Sniffer`: records live IR events with protocol, code, bits, duration, and repetitions.
+- `Night IR`: detects pulsed/modulated IR activity from remotes, IR LEDs, sensors, or cameras with pulsed IR.
+- `IR Proximity`: experimental IR reflection test. It does not measure actual distance and depends heavily on the physical setup.
 
-Notas IR:
+IR notes:
 
-- Muchos minisplits/aires acondicionados usan codigos largos con estado completo. Subir temperatura, bajar temperatura, encender y apagar pueden ser capturas totalmente distintas.
-- El receptor IR demodulado no mide intensidad analogica real ni frecuencia carrier exacta. Las barras son actividad detectada, no potencia optica precisa.
-- Para capturas confiables, apunta el control directo al receptor y evita luz IR fuerte alrededor.
+- Many mini-split and air-conditioning units use long codes containing complete state information. Increasing temperature, decreasing temperature, turning on, and turning off may all be completely different captures.
+- The demodulated IR receiver does not measure actual analog intensity or exact carrier frequency. The bars show detected activity, not precise optical power.
+- For reliable captures, point the remote directly at the receiver and avoid strong IR light nearby.
 
 ### CC1101 Tools
 
-- `Hardware Diag`: verifica comunicacion SPI, `PARTNUM`, `VERSION`, `MARCSTATE`, RSSI, LQI y nivel GDO0.
-- `Spectrum Scan`: barre bandas comunes 315, 433, 868 y 915 MHz para ver picos de RSSI.
-- `Waterfall`: vista historica de actividad RF por frecuencia.
-- `Frequency Mon`: monitorea una frecuencia fija como 315.00, 390.00, 433.92, 868.35 o 915.00 MHz.
-- `Freq Finder`: calibra ruido y busca automaticamente el pico de una senal sub-GHz.
-- `Brute Search`: busqueda amplia para encontrar actividad candidata.
-- `Code Check`: compara varias pulsaciones para ver si una senal parece fija o cambiante.
-- `RF Analyzer`: muestra pulsos, duracion total, promedios corto/largo, tipo OOK/ASK y firma/hash.
-- `RF Raw View`: captura y dibuja la senal como barras/pulsos para comparar botones.
-- `RF Live`: detector en vivo con frecuencia, RSSI pico, contador de eventos y ultima actividad.
-- `Lab Replay`: replay RF OOK/ASK solo para dispositivos propios de codigo fijo y pruebas de laboratorio.
-- `Test Beacon`: transmision corta de prueba para validar salida RF en un entorno controlado.
+- `Hardware Diag`: verifies SPI communication, `PARTNUM`, `VERSION`, `MARCSTATE`, RSSI, LQI, and GDO0 level.
+- `Spectrum Scan`: sweeps common 315, 433, 868, and 915 MHz bands to show RSSI peaks.
+- `Waterfall`: historical view of RF activity by frequency.
+- `Frequency Mon`: monitors a fixed frequency such as 315.00, 390.00, 433.92, 868.35, or 915.00 MHz.
+- `Freq Finder`: calibrates noise and automatically searches for the peak of a sub-GHz signal.
+- `Brute Search`: broad search for finding candidate activity.
+- `Code Check`: compares multiple button presses to see whether a signal appears fixed or changing.
+- `RF Analyzer`: displays pulses, total duration, short/long averages, OOK/ASK type, and signature/hash.
+- `RF Raw View`: captures and draws the signal as bars/pulses for comparing buttons.
+- `RF Live`: live detector with frequency, peak RSSI, event counter, and last activity.
+- `Lab Replay`: OOK/ASK RF replay only for your own fixed-code devices and laboratory testing.
+- `Test Beacon`: short test transmission for validating RF output in a controlled environment.
 
-Notas CC1101:
+CC1101 notes:
 
-- `433.92 MHz` y `434 MHz` normalmente se refieren a la misma zona practica. Muchos controles se anuncian como 434 aunque trabajen cerca de 433.92 MHz.
-- El medidor de frecuencia es aproximado. No sustituye un analizador de espectro profesional.
-- No uses replay RF en autos, portones, alarmas, cerraduras o sistemas ajenos. Muchos usan rolling code y no deben copiarse ni probarse fuera de laboratorio propio.
+- `433.92 MHz` and `434 MHz` usually refer to the same practical range. Many remotes are advertised as 434 even though they operate near 433.92 MHz.
+- The frequency meter is approximate. It does not replace a professional spectrum analyzer.
+- Do not use RF replay on cars, gates, alarms, locks, or systems belonging to others. Many use rolling codes and must not be copied or tested outside your own lab.
 
 ### Bluetooth Tools
 
-- `BLE Device Radar`: escanea BLE, muestra nombre, MAC, RSSI, fabricante/tipo y permite rastrear un objetivo con historial.
-- `BLE Inspector`: scanner mejorado con clasificacion por fabricante, appearance, tipo de dispositivo y servicios.
-- `iPhone Remote`: modo BLE HID experimental para emparejamiento/control basico en dispositivos propios.
-- `BLE Spam`: pruebas BLE educativas en laboratorio.
-- `BT Disruptor`: pruebas Bluetooth de laboratorio controlado.
-- `BT Jammer`: barrido 2.4 GHz con doble nRF24L01 para pruebas educativas de corto alcance en entorno propio.
+- `BLE Device Radar`: scans BLE, shows name, MAC, RSSI, manufacturer/type, and lets you track a target with history.
+- `BLE Inspector`: enhanced scanner with classification by manufacturer, appearance, device type, and services.
+- `iPhone Remote`: experimental BLE HID mode for pairing and basic control of your own devices.
+- `BLE Spam`: educational BLE testing in a laboratory.
+- `BT Disruptor`: controlled Bluetooth laboratory testing.
+- `BT Jammer`: 2.4 GHz sweep with dual nRF24L01 modules for short-range educational testing in your own environment.
 
 ### System Tools
 
-- `Settings`: configuracion del dispositivo y opciones guardadas.
-- `System Info`: informacion de memoria, firmware y estado del ESP32.
-- `Clock & Weather`: reloj/clima con teclado virtual para configuracion.
-- `Web Dashboard`: crea el AP `ESP32-TOOLS-PRO` con password `admin1234` y abre un panel web en `http://192.168.4.1`.
-- `About`: informacion del proyecto.
+- `Settings`: device configuration and saved options.
+- `System Info`: memory, firmware, and ESP32 status information.
+- `Clock & Weather`: clock/weather with a virtual keyboard for configuration.
+- `Web Dashboard`: creates the `ESP32-TOOLS-PRO` AP with password `admin1234` and opens a web panel at `http://192.168.4.1`.
+- `About`: project information.
 
 ### Web Dashboard
 
-La fase 1 del dashboard web se activa desde `System > Web Dashboard`. Al entrar, el ESP32 levanta un AP propio:
+Phase 1 of the web dashboard is activated from `System > Web Dashboard`. When opened, the ESP32 starts its own AP:
 
 ```text
 SSID: ESP32-TOOLS-PRO
@@ -204,300 +204,300 @@ PASS: admin1234
 URL : http://192.168.4.1
 ```
 
-Funciones disponibles en la fase 1:
-
-- Dashboard general con uptime, heap libre, clientes conectados y pines principales.
-- Diagnostico rapido de niveles IR RX y CC1101 GDO0.
-- Lista de capturas IR guardadas con replay, rename y delete.
-- Monitor CC1101 por frecuencia preset: 315.00, 390.00, 433.92, 868.35 y 915.00 MHz.
-- WiFi Tools desde navegador:
-  - `WiFi Scanner`: lista de redes, canal, RSSI, seguridad y BSSID.
-  - `Channel Scan`: resumen por canal y tabla de redes 2.4 GHz.
-  - `WiFi Radar`: selecciona un AP y lo rastrea por RSSI/cercania.
-  - `Direction Finder`: mide frente, derecha, atras e izquierda para sugerir la direccion mas fuerte.
-  - `Beacon Spam`: demo web controlada con SSIDs de laboratorio, canal fijo del dashboard, boton start/stop y auto-stop.
-  - `Deauther`, `Evil Portal`, `Probe Sniffer` y `KARMA Attack` aparecen como `LOCAL ONLY` para usarse desde la pantalla del dispositivo.
-- Bluetooth / Radio desde navegador:
-  - `BT Jammer`: se puede iniciar y detener directamente desde el dashboard web, sin confirmacion fisica en el dispositivo. Usalo solo en laboratorio propio y de corto alcance.
-
-El dashboard mantiene como `LOCAL ONLY` las funciones que toman control completo del WiFi, como Deauther, Evil Portal y KARMA, para evitar conflictos con el AP del dashboard. `BT Jammer` es la excepcion actual: puede ejecutarse desde el panel web porque usa los nRF24L01 y no necesita confirmacion fisica.
-
-[Volver al indice](#indice)
-
-## Componentes usados
-
-| Componente | Descripcion | Voltaje recomendado | Notas |
-| --- | --- | --- | --- |
-| ESP32 Dev Module | Microcontrolador principal del proyecto | USB/5V en placa | Logica GPIO de 3.3V |
-| TFT 480x320 ILI9488 SPI | Pantalla principal | Segun modulo, comunmente 5V o 3.3V | Senales SPI a 3.3V |
-| nRF24L01 #1 | Radio 2.4 GHz principal | 3.3V | No alimentar a 5V |
-| nRF24L01 #2 | Radio 2.4 GHz secundario | 3.3V | Recomendado capacitor cerca de VCC/GND |
-| M5Stack IR Unit | Receptor + transmisor infrarrojo | 5V | Cableado verificado con OUT en GPIO26 e IN en GPIO34 |
-| CC1101 | Radio sub-GHz para 315/433/868/915 MHz | 3.3V | No alimentar a 5V |
-| Botones UP/OK/DOWN | Navegacion del firmware | GPIO a GND | Usa `INPUT_PULLUP` interno |
-
-### Imagenes de componentes
-
-| Componente | Imagen |
-| --- | --- |
-| ESP32 Dev Module | ![ESP32](img/componentes/esp32U.png) |
-| Pantalla ILI9488 480x320 | ![Pantalla ILI9488](img/componentes/pantalla9488.png) |
-| Modulos nRF24L01 | ![Dos nRF24L01](img/componentes/2NRF24.png) |
-| nRF24L01 | ![nRF24L01](img/componentes/NRF24.png) |
-| CC1101 | ![CC1101](img/componentes/cc1101.png) |
-| Antena | ![Antena](img/componentes/antena.png) |
-| M5Stack IR Unit | ![IR Unit](img/componentes/IRREMOTE.png) |
-| IR Unit vista 2 | ![IR Unit vista 2](img/componentes/IRREMOTE2.png) |
-| Botones | ![Botones](img/componentes/botones.png) |
-| Bateria | ![Bateria](img/componentes/bateria.png) |
-| TP4056 | ![TP4056](img/componentes/tp4056.png) |
-| Step-up | ![Step-up](img/componentes/stepup.png) |
-| Interruptor | ![Interruptor](img/componentes/interruptor.png) |
-| Placa PCB / montaje | ![Placa PCB](img/componentes/placapcb.png) |
-
-### Diagramas de conexiones completas
-
-Estos diagramas muestran el cableado por bloques para que sea mas facil soldar y revisar el montaje sin saturar una sola imagen.
-
-#### Pantalla TFT y botones
-
-![Conexiones pantalla ILI9488 y botones al ESP32](img/componentes/conexiones-pantalla-botones-esp32.jpg)
-
-#### Modulos nRF24L01
-
-![Conexiones de dos nRF24L01 al ESP32](img/componentes/conexiones-NRF24-ESP32.jpg)
-
-#### CC1101 e IR Remote
-
-![Conexiones CC1101 e IR Remote al ESP32](img/componentes/conexiones-CC1101-IR.jpg)
-
-### Pinouts de referencia
-
-| Modulo | Pinout |
-| --- | --- |
-| nRF24L01 PA + LNA | ![Pinout nRF24L01 PA LNA](img/componentes/Pines_NRF24.png) |
-| CC1101 | ![Pinout CC1101](img/componentes/cc1101-pines.png) |
-
-[Volver al indice](#indice)
-
-## Tabla de conexiones
-
-Todos los modulos deben compartir `GND` con el ESP32. No conectes ningun modulo de 3.3V a 5V.
-
-### Bus SPI compartido
-
-| Senal | ESP32 GPIO | Usado por |
-| --- | ---: | --- |
-| SCK | GPIO18 | TFT, nRF24 #1, nRF24 #2, CC1101 |
-| MOSI | GPIO23 | TFT, nRF24 #1, nRF24 #2, CC1101 |
-| MISO | GPIO19 | nRF24 #1, nRF24 #2, CC1101 |
-
-Cada modulo SPI tiene su propio pin `CS/CSN`, por eso pueden compartir SCK/MOSI/MISO.
-
-### Pantalla TFT 480x320
-
-| Pin TFT | ESP32 GPIO | Nota |
-| --- | ---: | --- |
-| CS | GPIO5 | Chip select TFT |
-| RST | GPIO4 | Reset TFT |
-| DC / RS | GPIO22 | Data/Command |
-| LED / BL | GPIO13 | Backlight |
-| SCK / CLK | GPIO18 | SPI compartido |
-| MOSI / SDI | GPIO23 | SPI compartido |
-| MISO / SDO | No usado por TFT | El firmware define TFT MISO como `-1` |
-| VCC | Segun modulo | Revisa tu pantalla: algunas aceptan 5V, otras 3.3V |
-| GND | GND | Tierra comun |
-
-### nRF24L01 #1
-
-| Pin nRF24 | ESP32 GPIO | Nota |
-| --- | ---: | --- |
-| CE | GPIO27 | Control radio #1 |
-| CSN | GPIO14 | Chip select radio #1 |
-| SCK | GPIO18 | SPI compartido |
-| MOSI | GPIO23 | SPI compartido |
-| MISO | GPIO19 | SPI compartido |
-| VCC | 3.3V | No usar 5V |
-| GND | GND | Tierra comun |
-
-### nRF24L01 #2
-
-| Pin nRF24 | ESP32 GPIO | Nota |
-| --- | ---: | --- |
-| CE | GPIO17 | Control radio #2 |
-| CSN | GPIO16 | Chip select radio #2 |
-| SCK | GPIO18 | SPI compartido |
-| MOSI | GPIO23 | SPI compartido |
-| MISO | GPIO19 | SPI compartido |
-| VCC | 3.3V | No usar 5V |
-| GND | GND | Tierra comun |
-
-### M5Stack IR Unit
-
-| Pin modulo IR | ESP32 GPIO | Funcion en firmware | Nota |
-| --- | ---: | --- | --- |
-| OUT | GPIO26 | `IR_TX_PIN` | Salida ESP32 hacia transmisor IR del modulo |
-| IN | GPIO34 | `IR_RX_PIN` | Entrada ESP32 desde receptor IR del modulo |
-| 5V | 5V | Alimentacion | El modulo M5Stack IR trabaja con 5V |
-| GND | GND | Tierra comun | Obligatorio compartir tierra |
-
-GPIO34 es solo entrada, por eso se usa para recibir IR. GPIO26 se usa para transmitir.
-
-### CC1101
-
-| Pin CC1101 | ESP32 GPIO | Funcion en firmware | Nota |
-| --- | ---: | --- | --- |
-| CSN / CS | GPIO21 | `CC1101_CSN_PIN` | Chip select CC1101 |
-| SCK | GPIO18 | SPI compartido | Reloj SPI |
-| MOSI / SI | GPIO23 | SPI compartido | Datos ESP32 hacia CC1101 |
-| MISO / SO | GPIO19 | SPI compartido | Datos CC1101 hacia ESP32 |
-| GDO0 | GPIO35 | `CC1101_GDO0_PIN` | Entrada RX/edges RF |
-| GDO2 extra | GPIO15 | `CC1101_TX_DATA_PIN` | Jumper opcional para `Lab Replay` |
-| VCC | 3.3V | Alimentacion | No usar 5V |
-| GND | GND | Tierra comun | Obligatorio compartir tierra |
-
-El jumper `GDO0 extra -> GPIO15` solo es necesario para las pruebas de `Lab Replay`. Puedes dejarlo fuera si solo usaras diagnostico, monitor, finder, analyzer y raw view.
-
-### Botones
-
-| Boton | ESP32 GPIO | Cableado |
-| --- | ---: | --- |
-| UP | GPIO32 | Boton entre GPIO32 y GND |
-| OK | GPIO33 | Boton entre GPIO33 y GND |
-| DOWN | GPIO25 | Boton entre GPIO25 y GND |
-
-Los botones usan pull-up interno. Al presionarlos, el pin va a `LOW`.
-
-[Volver al indice](#indice)
-
-## Diagrama visual de conexiones
-
-```mermaid
-flowchart LR
-  ESP(("ESP32 Dev Module<br>centro de conexiones<br>SPI compartido: GPIO18 / GPIO23 / GPIO19<br>GND comun")):::esp
-
-  NRF1["nRF24L01 #1<br>SPI 18/23/19<br>CE GPIO27<br>CSN GPIO14<br>3.3V + GND"]:::radio
-  NRF2["nRF24L01 #2<br>SPI 18/23/19<br>CE GPIO17<br>CSN GPIO16<br>3.3V + GND"]:::radio
-  IR["M5Stack IR Unit<br>OUT/TX GPIO26<br>IN/RX GPIO34<br>5V + GND"]:::ir
-
-  TFT["TFT 480x320 ILI9488<br>SCK GPIO18<br>MOSI GPIO23<br>CS GPIO5<br>DC GPIO22<br>RST GPIO4<br>BL GPIO13"]:::display
-  CC["CC1101<br>SPI 18/23/19<br>CSN GPIO21<br>GDO0 RX GPIO35<br>TX opcional GPIO15<br>3.3V + GND"]:::cc
-  BTN["Botones<br>UP GPIO32<br>OK GPIO33<br>DOWN GPIO25<br>cada boton a GND"]:::btn
-
-  NRF1 --- ESP
-  NRF2 --- ESP
-  IR --- ESP
-  ESP --- TFT
-  ESP --- CC
-  ESP --- BTN
-
-  classDef esp fill:#0f172a,stroke:#38bdf8,stroke-width:3px,color:#ffffff;
-  classDef display fill:#111827,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
-  classDef radio fill:#111827,stroke:#22c55e,stroke-width:2px,color:#ffffff;
-  classDef ir fill:#111827,stroke:#ef4444,stroke-width:2px,color:#ffffff;
-  classDef cc fill:#111827,stroke:#a855f7,stroke-width:2px,color:#ffffff;
-  classDef btn fill:#111827,stroke:#e5e7eb,stroke-width:2px,color:#ffffff;
-```
-
-[Volver al indice](#indice)
-
-## Pin map rapido
-
-```text
-ESP32 GPIO18  -> SPI SCK compartido
-ESP32 GPIO23  -> SPI MOSI compartido
-ESP32 GPIO19  -> SPI MISO compartido
-
-ESP32 GPIO5   -> TFT CS
-ESP32 GPIO4   -> TFT RST
-ESP32 GPIO22  -> TFT DC
-ESP32 GPIO13  -> TFT Backlight
-
-ESP32 GPIO27  -> nRF24 #1 CE
-ESP32 GPIO14  -> nRF24 #1 CSN
-ESP32 GPIO17  -> nRF24 #2 CE
-ESP32 GPIO16  -> nRF24 #2 CSN
-
-ESP32 GPIO26  -> IR OUT / TX
-ESP32 GPIO34  -> IR IN / RX
-
-ESP32 GPIO21  -> CC1101 CSN
-ESP32 GPIO35  -> CC1101 GDO0 RX
-ESP32 GPIO15  -> CC1101 GDO0 TX opcional para Lab Replay
-
-ESP32 GPIO32  -> Boton UP a GND
-ESP32 GPIO33  -> Boton OK a GND
-ESP32 GPIO25  -> Boton DOWN a GND
-```
-
-[Volver al indice](#indice)
-
-## Web flasher
-
-Flasheo directo desde navegador:
-
-[https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
-
-La pagina usa ESP Web Tools y estos archivos del repo:
-
-- `index.html`: pagina de flasheo con ESP Web Tools.
-- `manifest.json`: manifiesto usado por ESP Web Tools.
-- `assets/Firmware/firmware-merged.bin`: binario completo para flashear desde offset `0x0`.
-- `assets/Firmware/firmware.bin`: aplicacion compilada.
-- `assets/Firmware/bootloader.bin`: bootloader.
-- `assets/Firmware/partitions.bin`: tabla de particiones.
-
-Repo objetivo:
-
-```text
-https://github.com/pepeangell5/ESP32-TOOLS-PRO-480x320-V2.0
-```
-
-[Volver al indice](#indice)
-
-## Compilar y subir con PlatformIO
-
-Compilar:
-
-```bash
-pio run
-```
-
-Subir al ESP32:
-
-```bash
-pio run -t upload --upload-port COM3
-```
-
-Si la subida falla con error de boot/serial, manten presionado `BOOT` al iniciar la carga y sueltalo cuando PlatformIO empiece a escribir.
-
-[Volver al indice](#indice)
-
-## Limites conocidos
-
-- WiFi es solo 2.4 GHz porque el ESP32 clasico no tiene radio 5 GHz.
-- El CC1101 da lecturas aproximadas de RSSI/frecuencia; no es un analizador de espectro profesional.
-- `IR Proximity` es experimental y puede quedarse en `NONE` dependiendo del angulo y rebote fisico.
-- Los aires acondicionados suelen usar senales largas con estado completo; guarda cada funcion por separado.
-- `Jammer`, `BT Jammer`, `BLE Spam`, `BT Disruptor`, `Deauther`, `KARMA` y `Beacon Spam` son funciones de laboratorio. Pueden degradar comunicaciones cercanas y deben usarse solo con autorizacion.
-- `Lab Replay` RF esta pensado para focos, enchufes o dispositivos propios de codigo fijo. No es para vehiculos, alarmas, cerraduras ni portones.
-- Los modulos RF433T/RF433R quedan fuera de V2.0.
-
-[Volver al indice](#indice)
-
-## Creditos
-
-Proyecto creado y probado por PepeAngell para ESP32-TOOLS-PRO-480x320-V2.0.
-
-[Volver al indice](#indice)
-
-## Redes y enlaces
-
-- GitHub: [github.com/pepeangell5](https://github.com/pepeangell5)
-- Web Flasher: [pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
-- Instagram: [@esp32_tools](https://instagram.com/esp32_tools)
-- Facebook: [ESP32Tools](https://www.facebook.com/esp32tools/)
-
-[Volver al indice](#indice)
-
-[Volver al inicio](#esp32-tools-pro-480x320-v20)
+Available in phase 1:
+
+- General dashboard with uptime, free heap, connected clients, and main pins.
+- Quick diagnostics for IR RX and CC1101 GDO0 levels.
+- List of saved IR captures with replay, rename, and delete.
+- CC1101 monitor by preset frequency: 315.00, 390.00, 433.92, 868.35, and 915.00 MHz.
+- WiFi Tools from a browser:
+  - `WiFi Scanner`: list of networks, channel, RSSI, security, and BSSID.
+  - `Channel Scan`: per-channel summary and 2.4 GHz network table.
+  - `WiFi Radar`: selects an AP and tracks it by RSSI/proximity.
+  - `Direction Finder`: measures front, right, back, and left to suggest the strongest direction.
+  - `Beacon Spam`: controlled web demo with laboratory SSIDs, a dashboard-fixed channel, start/stop button, and auto-stop.
+  - `Deauther`, `Evil Portal`, `Probe Sniffer`, and `KARMA Attack` appear as `LOCAL ONLY` and must be used from the device screen.
++- Bluetooth / Radio from a browser:
++  - `BT Jammer`: can be started and stopped directly from the web dashboard, without physical confirmation on the device. Use it only in your own short-range laboratory environment.
++
++The dashboard keeps functions that take full control of WiFi, such as Deauther, Evil Portal, and KARMA, as `LOCAL ONLY` to avoid conflicts with the dashboard AP. `BT Jammer` is the current exception: it can run from the web panel because it uses the nRF24L01 modules and does not need physical confirmation.
++
++[Back to table of contents](#table-of-contents)
++
++## Components Used
++
++| Component | Description | Recommended Voltage | Notes |
++| --- | --- | --- | --- |
++| ESP32 Dev Module | Main project microcontroller | USB/5V on board | 3.3V GPIO logic |
++| TFT 480x320 ILI9488 SPI | Main display | Depends on module, commonly 5V or 3.3V | 3.3V SPI signals |
++| nRF24L01 #1 | Main 2.4 GHz radio | 3.3V | Do not power with 5V |
++| nRF24L01 #2 | Secondary 2.4 GHz radio | 3.3V | Capacitor near VCC/GND recommended |
++| M5Stack IR Unit | Infrared receiver + transmitter | 5V | Wiring verified with OUT on GPIO26 and IN on GPIO34 |
++| CC1101 | Sub-GHz radio for 315/433/868/915 MHz | 3.3V | Do not power with 5V |
++| UP/OK/DOWN buttons | Firmware navigation | GPIO to GND | Uses internal `INPUT_PULLUP` |
++
++### Component Images
++
++| Component | Image |
++| --- | --- |
++| ESP32 Dev Module | ![ESP32](img/componentes/esp32U.png) |
++| ILI9488 480x320 display | ![ILI9488 display](img/componentes/pantalla9488.png) |
++| nRF24L01 modules | ![Two nRF24L01 modules](img/componentes/2NRF24.png) |
++| nRF24L01 | ![nRF24L01](img/componentes/NRF24.png) |
++| CC1101 | ![CC1101](img/componentes/cc1101.png) |
++| Antenna | ![Antenna](img/componentes/antena.png) |
++| M5Stack IR Unit | ![IR Unit](img/componentes/IRREMOTE.png) |
++| IR Unit view 2 | ![IR Unit view 2](img/componentes/IRREMOTE2.png) |
++| Buttons | ![Buttons](img/componentes/botones.png) |
++| Battery | ![Battery](img/componentes/bateria.png) |
++| TP4056 | ![TP4056](img/componentes/tp4056.png) |
++| Step-up | ![Step-up](img/componentes/stepup.png) |
++| Switch | ![Switch](img/componentes/interruptor.png) |
++| PCB / assembly | ![PCB](img/componentes/placapcb.png) |
++
++### Complete Wiring Diagrams
++
++These diagrams show block-level wiring to make soldering and checking the assembly easier without overcrowding a single image.
++
++#### TFT Display and Buttons
++
++![ILI9488 display and buttons connected to the ESP32](img/componentes/conexiones-pantalla-botones-esp32.jpg)
++
++#### nRF24L01 Modules
++
++![Two nRF24L01 modules connected to the ESP32](img/componentes/conexiones-NRF24-ESP32.jpg)
++
++#### CC1101 and IR Remote
++
++![CC1101 and IR Remote connected to the ESP32](img/componentes/conexiones-CC1101-IR.jpg)
++
++### Reference Pinouts
++
++| Module | Pinout |
++| --- | --- |
++| nRF24L01 PA + LNA | ![nRF24L01 PA LNA pinout](img/componentes/Pines_NRF24.png) |
++| CC1101 | ![CC1101 pinout](img/componentes/cc1101-pines.png) |
++
++[Back to table of contents](#table-of-contents)
++
++## Wiring Table
++
++All modules must share `GND` with the ESP32. Do not connect any 3.3V module to 5V.
++
++### Shared SPI Bus
++
++| Signal | ESP32 GPIO | Used by |
++| --- | ---: | --- |
++| SCK | GPIO18 | TFT, nRF24 #1, nRF24 #2, CC1101 |
++| MOSI | GPIO23 | TFT, nRF24 #1, nRF24 #2, CC1101 |
++| MISO | GPIO19 | nRF24 #1, nRF24 #2, CC1101 |
++
++Each SPI module has its own `CS/CSN` pin, so they can share SCK/MOSI/MISO.
++
++### 480x320 TFT Display
++
++| TFT Pin | ESP32 GPIO | Note |
++| --- | ---: | --- |
++| CS | GPIO5 | TFT chip select |
++| RST | GPIO4 | TFT reset |
++| DC / RS | GPIO22 | Data/Command |
++| LED / BL | GPIO13 | Backlight |
++| SCK / CLK | GPIO18 | Shared SPI |
++| MOSI / SDI | GPIO23 | Shared SPI |
++| MISO / SDO | Not used by TFT | Firmware sets TFT MISO to `-1` |
++| VCC | Depends on module | Check your display: some accept 5V, others 3.3V |
++| GND | GND | Common ground |
++
++### nRF24L01 #1
++
++| nRF24 Pin | ESP32 GPIO | Note |
++| --- | ---: | --- |
++| CE | GPIO27 | Radio #1 control |
++| CSN | GPIO14 | Radio #1 chip select |
++| SCK | GPIO18 | Shared SPI |
++| MOSI | GPIO23 | Shared SPI |
++| MISO | GPIO19 | Shared SPI |
++| VCC | 3.3V | Do not use 5V |
++| GND | GND | Common ground |
++
++### nRF24L01 #2
++
++| nRF24 Pin | ESP32 GPIO | Note |
++| --- | ---: | --- |
++| CE | GPIO17 | Radio #2 control |
++| CSN | GPIO16 | Radio #2 chip select |
++| SCK | GPIO18 | Shared SPI |
++| MOSI | GPIO23 | Shared SPI |
++| MISO | GPIO19 | Shared SPI |
++| VCC | 3.3V | Do not use 5V |
++| GND | GND | Common ground |
++
++### M5Stack IR Unit
++
++| IR Module Pin | ESP32 GPIO | Firmware Function | Note |
++| --- | ---: | --- | --- |
++| OUT | GPIO26 | `IR_TX_PIN` | ESP32 output to the module's IR transmitter |
++| IN | GPIO34 | `IR_RX_PIN` | ESP32 input from the module's IR receiver |
++| 5V | 5V | Power | The M5Stack IR module operates at 5V |
++| GND | GND | Common ground | Ground must be shared |
++
++GPIO34 is input-only, so it is used for IR reception. GPIO26 is used for transmission.
++
++### CC1101
++
++| CC1101 Pin | ESP32 GPIO | Firmware Function | Note |
++| --- | ---: | --- | --- |
++| CSN / CS | GPIO21 | `CC1101_CSN_PIN` | CC1101 chip select |
++| SCK | GPIO18 | Shared SPI | SPI clock |
++| MOSI / SI | GPIO23 | Shared SPI | Data from ESP32 to CC1101 |
++| MISO / SO | GPIO19 | Shared SPI | Data from CC1101 to ESP32 |
++| GDO0 | GPIO35 | `CC1101_GDO0_PIN` | RF RX/edge input |
++| Extra GDO2 | GPIO15 | `CC1101_TX_DATA_PIN` | Optional jumper for `Lab Replay` |
++| VCC | 3.3V | Power | Do not use 5V |
++| GND | GND | Common ground | Ground must be shared |
++
++The `GDO0 extra -> GPIO15` jumper is only needed for `Lab Replay` testing. You can omit it if you only use diagnostics, monitor, finder, analyzer, and raw view.
++
++### Buttons
++
++| Button | ESP32 GPIO | Wiring |
++| --- | ---: | --- |
++| UP | GPIO32 | Button between GPIO32 and GND |
++| OK | GPIO33 | Button between GPIO33 and GND |
++| DOWN | GPIO25 | Button between GPIO25 and GND |
++
++The buttons use the internal pull-up. When pressed, the pin goes `LOW`.
++
++[Back to table of contents](#table-of-contents)
++
++## Visual Wiring Diagram
++
++```mermaid
++flowchart LR
++  ESP(("ESP32 Dev Module<br>connection center<br>shared SPI: GPIO18 / GPIO23 / GPIO19<br>common GND")):::esp
++
++  NRF1["nRF24L01 #1<br>SPI 18/23/19<br>CE GPIO27<br>CSN GPIO14<br>3.3V + GND"]:::radio
++  NRF2["nRF24L01 #2<br>SPI 18/23/19<br>CE GPIO17<br>CSN GPIO16<br>3.3V + GND"]:::radio
++  IR["M5Stack IR Unit<br>OUT/TX GPIO26<br>IN/RX GPIO34<br>5V + GND"]:::ir
++
++  TFT["TFT 480x320 ILI9488<br>SCK GPIO18<br>MOSI GPIO23<br>CS GPIO5<br>DC GPIO22<br>RST GPIO4<br>BL GPIO13"]:::display
++  CC["CC1101<br>SPI 18/23/19<br>CSN GPIO21<br>GDO0 RX GPIO35<br>optional TX GPIO15<br>3.3V + GND"]:::cc
++  BTN["Buttons<br>UP GPIO32<br>OK GPIO33<br>DOWN GPIO25<br>each button to GND"]:::btn
++
++  NRF1 --- ESP
++  NRF2 --- ESP
++  IR --- ESP
++  ESP --- TFT
++  ESP --- CC
++  ESP --- BTN
++
++  classDef esp fill:#0f172a,stroke:#38bdf8,stroke-width:3px,color:#ffffff;
++  classDef display fill:#111827,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
++  classDef radio fill:#111827,stroke:#22c55e,stroke-width:2px,color:#ffffff;
++  classDef ir fill:#111827,stroke:#ef4444,stroke-width:2px,color:#ffffff;
++  classDef cc fill:#111827,stroke:#a855f7,stroke-width:2px,color:#ffffff;
++  classDef btn fill:#111827,stroke:#e5e7eb,stroke-width:2px,color:#ffffff;
++```
++
++[Back to table of contents](#table-of-contents)
++
++## Quick Pin Map
++
++```text
++ESP32 GPIO18  -> shared SPI SCK
++ESP32 GPIO23  -> shared SPI MOSI
++ESP32 GPIO19  -> shared SPI MISO
++
++ESP32 GPIO5   -> TFT CS
++ESP32 GPIO4   -> TFT RST
++ESP32 GPIO22  -> TFT DC
++ESP32 GPIO13  -> TFT Backlight
++
++ESP32 GPIO27  -> nRF24 #1 CE
++ESP32 GPIO14  -> nRF24 #1 CSN
++ESP32 GPIO17  -> nRF24 #2 CE
++ESP32 GPIO16  -> nRF24 #2 CSN
++
++ESP32 GPIO26  -> IR OUT / TX
++ESP32 GPIO34  -> IR IN / RX
++
++ESP32 GPIO21  -> CC1101 CSN
++ESP32 GPIO35  -> CC1101 GDO0 RX
++ESP32 GPIO15  -> CC1101 optional GDO0 TX for Lab Replay
++
++ESP32 GPIO32  -> UP button to GND
++ESP32 GPIO33  -> OK button to GND
++ESP32 GPIO25  -> DOWN button to GND
++```
++
++[Back to table of contents](#table-of-contents)
++
++## Web Flasher
++
++Flash directly from a browser:
++
++[https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
++
++The page uses ESP Web Tools and these repository files:
++
++- `index.html`: flashing page with ESP Web Tools.
++- `manifest.json`: manifest used by ESP Web Tools.
++- `assets/Firmware/firmware-merged.bin`: complete binary to flash from offset `0x0`.
++- `assets/Firmware/firmware.bin`: compiled application.
++- `assets/Firmware/bootloader.bin`: bootloader.
++- `assets/Firmware/partitions.bin`: partition table.
++
++Target repository:
++
++```text
++https://github.com/pepeangell5/ESP32-TOOLS-PRO-480x320-V2.0
++```
++
++[Back to table of contents](#table-of-contents)
++
++## Build and Upload with PlatformIO
++
++Build:
++
++```bash
++pio run
++```
++
++Upload to the ESP32:
++
++```bash
++pio run -t upload --upload-port COM3
++```
++
++If uploading fails with a boot/serial error, hold `BOOT` while starting the upload and release it when PlatformIO begins writing.
++
++[Back to table of contents](#table-of-contents)
++
++## Known Limitations
++
++- WiFi is 2.4 GHz only because the classic ESP32 does not have a 5 GHz radio.
++- The CC1101 provides approximate RSSI/frequency readings; it is not a professional spectrum analyzer.
++- `IR Proximity` is experimental and may remain at `NONE` depending on the angle and physical reflection.
++- Air conditioners usually use long signals with complete state information; save each function separately.
++- `Jammer`, `BT Jammer`, `BLE Spam`, `BT Disruptor`, `Deauther`, `KARMA`, and `Beacon Spam` are laboratory functions. They can degrade nearby communications and must be used only with authorization.
++- `Lab Replay` RF is intended for lights, outlets, or your own fixed-code devices. It is not for vehicles, alarms, locks, or gates.
++- The RF433T/RF433R modules are excluded from V2.0.
++
++[Back to table of contents](#table-of-contents)
++
++## Credits
++
++Project created and tested by PepeAngell for ESP32-TOOLS-PRO-480x320-V2.0.
++
++[Back to table of contents](#table-of-contents)
++
++## Social and Links
++
++- GitHub: [github.com/pepeangell5](https://github.com/pepeangell5)
++- Web Flasher: [pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0](https://pepeangell5.github.io/ESP32-TOOLS-PRO-480x320-V2.0/)
++- Instagram: [@esp32_tools](https://instagram.com/esp32_tools)
++- Facebook: [ESP32Tools](https://www.facebook.com/esp32tools/)
++
++[Back to table of contents](#table-of-contents)
++
++[Back to top](#esp32-tools-pro-480x320-v20)
